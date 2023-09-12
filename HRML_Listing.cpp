@@ -36,14 +36,7 @@ getline(cin, hrmlArrayPtr[i][0]);
 
 }
 
-
-
-
-
 }
-
-
-
 
 int main() {
     /* Enter your code here. Read input from STDIN. Print output to STDOUT */   
