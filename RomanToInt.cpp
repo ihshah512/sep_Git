@@ -1,10 +1,12 @@
 #include<iostream>
 #include<vector>
 #include<string>
+#include<map>
+#include<unordered_map>
 
 using namespace std;
 
-void romanToInt(string s){
+int romanToInt(string s){
 
     string validStraings = "IVXLCDM";
     //int val = 0;
@@ -16,38 +18,61 @@ void romanToInt(string s){
 
     int strLen = s.length();
 
-    int counter = 0;
+    bool valid_arg=true;
     for(int i = 0; i < strLen; ++i){
         char eachLetter = s[i];
-        cout << eachLetter << " - " << endl;
+        
         //we took size_t because it could never be negative
         size_t found = validStraings.find(eachLetter);
         
         if(found == std::string::npos){
             
-            counter++; 
+            valid_arg=false;
            
         }
-     
+    }  
+    if(!valid_arg){
+        cout << "INVALID ARGS" << endl;
     }
 
-    if(counter >= 1){
-        cout << "Invalid user inpur" << endl;
-    }else{
-
-        cout << "Valid Input" << endl;
+unordered_map<char, int> m;
+        
+        m['I'] = 1;
+        m['V'] = 5;
+        m['X'] = 10;
+        m['L'] = 50;
+        m['C'] = 100;
+        m['D'] = 500;
+        m['M'] = 1000;
+        
+        int ans = 0;
+        
+        for(int i = 0; i < s.length(); i++){
+            if((m[s[i]] == 'I') && (m[s[i+1] == 'V'])){
+                ans+=4;
+            }
+           if((m[s[i]] == 'V') && (m[s[i+1] == 'I'])){
+                ans+=6;
+            }
+            if(m[s[i]] < m[s[i+1]]){
+                ans -= m[s[i]];
+            }
+            else{
+                ans += m[s[i]];
+            }
+        }
+        return ans;
     }
    
-}
-
-
 int main(){
 
     string str;
     cout << "Enter ROMAN letters" << endl;
     cin >> str;
 
-   romanToInt(str);
+   int answer = romanToInt(str);
+
+   cout << answer << endl;
 
 
    
